@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NexaStack Solutions – Grow Your Business Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #141d43;
+      --bg-soft: rgba(9, 16, 40, 0.85);
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.35);
+      --accent-2: #22d3ee;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --danger: #f97316;
+      --radius-lg: 20px;
+      --radius-full: 999px;
+      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.9);
+      --border-glass: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.06;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      mix-blend-mode: soft-light;
+      z-index: -1;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 72px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 20px;
+      margin-bottom: 32px;
+      border-radius: var(--radius-lg);
+      border: var(--border-glass);
+      background: linear-gradient(
+          120deg,
+          rgba(15, 23, 42, 0.92),
+          rgba(15, 23, 42, 0.8)
+        ),
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent),
+        radial-gradient(circle at top right, rgba(129, 140, 248, 0.22), transparent);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(22px);
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 20% 20%, #22d3ee, #4f46e5);
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 30%;
+      border-radius: inherit;
+      border: 2px solid rgba(15, 23, 42, 0.9);
+      transform: rotate(35deg);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-text span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: var(--accent-2);
+    }
+
+    .brand-text span:last-child {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(34, 211, 238, 0.15), transparent),
+        rgba(15, 23, 42, 0.85);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
+      align-items: center;
+    }
+
+    .hero-main {
+      padding: 26px 26px 26px 24px;
+      border-radius: 28px;
+      border: var(--border-glass);
+      background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.9),
+          rgba(15, 23, 42, 0.9)
+        ),
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.32), transparent 60%);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: -200px;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25), transparent 55%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tagline {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hero-kpi {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-size: clamp(32px, 4.1vw, 44px);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      letter-spacing: -0.04em;
+    }
+
+    h1 span.accent {
+      background: linear-gradient(120deg, #22d3ee, #4f46e5, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 440px;
+      margin-bottom: 16px;
+    }
+
+    .hero-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #e5e7eb;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      margin-bottom: 20px;
+    }
+
+    .hero-highlight span {
+      color: var(--accent-2);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: var(--radius-full);
+      padding: 10px 18px;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: #0b1120;
+      background: linear-gradient(135deg, #22d3ee, #4f46e5);
+      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.35);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 50px rgba(56, 189, 248, 0.5);
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(209, 213, 219, 0.9);
+    }
+
+    .hero-footnote {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-footnote strong {
+      color: #e5e7eb;
+    }
+
+    .hero-aside {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      border-radius: 18px;
+      padding: 16px 18px;
+      border: var(--border-glass);
+      background: linear-gradient(
+          140deg,
+          rgba(15, 23, 42, 0.96),
+          rgba(15, 23, 42, 0.9)
+        ),
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.24), transparent 55%);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.95);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .card-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 600;
+      color: #22d3ee;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .metric-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    .bar {
+      margin-top: 10px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-fill {
+      position: absolute;
+      inset: 0;
+      width: 82%;
+      background: linear-gradient(90deg, #22d3ee, #4f46e5, #a855f7);
+      box-shadow: 0 0 18px rgba(59, 130, 246, 0.7);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      color: var(--muted);
+    }
+
+    .glow-orbit {
+      position: absolute;
+      inset: -40%;
+      border-radius: 40%;
+      border: 1px solid rgba(148, 163, 184, 0.09);
+      transform: rotate(10deg);
+      pointer-events: none;
+    }
+
+    .sections {
+      display: grid;
+      gap: 24px;
+    }
+
+    section {
+      border-radius: 24px;
+      border: var(--border-glass);
+      background: linear-gradient(
+          160deg,
+          rgba(15, 23, 42, 0.96),
+          rgba(15, 23, 42, 0.92)
+        ),
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%);
+      backdrop-filter: blur(18px);
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    section header {
+      position: static;
+      padding: 0;
+      margin: 0 0 12px;
+      box-shadow: none;
+      background: transparent;
+      border: none;
+    }
+
+    section h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    section p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .mini {
+      font-size: 12px;
+    }
+
+    .mini h3 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .mini p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--muted);
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+      margin-bottom: 6px;
+    }
+
+    .step-index {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .testimonial {
+      font-size: 12px;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+
+    .testimonial-name {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .stars {
+      color: #facc15;
+      font-size: 11px;
+      margin-bottom: 5px;
+    }
+
+    .cta-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .cta-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .field-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    input {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text);
+      padding: 9px 14px;
+      font-size: 12px;
+      min-width: 200px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    footer {
+      margin-top: 24px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 900px) {
+      header {
+        position: static;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-main {
+        order: 1;
+      }
+      .hero-aside {
+        order: 2;
+      }
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 16px 12px 48px;
+      }
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      section {
+        padding: 16px 14px 14px;
+      }
+      .hero-main {
+        padding: 18px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <span>NexaStack Solutions</span>
+          <span>Business growth through web</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#benefits">Why us</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <span class="pill">
+        <span class="pill-dot"></span>
+        Booking projects for Q1
+      </span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-main">
+          <div class="hero-badge-row">
+            <span class="hero-tagline">Modern websites for ambitious businesses</span>
+            <span class="hero-kpi">Avg. +38% leads after launch</span>
+          </div>
+          <h1>
+            NexaStack Solutions <span class="accent">websites</span> that grow your business.
+          </h1>
+          <p class="hero-sub">
+            Design and development studio helping you turn your website into a 24/7
+            sales machine – fast, mobile‑ready, and built to convert visitors into customers.
+          </p>
+          <div class="hero-highlight">
+            <span>⚡</span>
+            <span>From idea to live website in as little as 14 days.</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Get free consultation →</a>
+            <a href="#services" class="btn-ghost">See what we build</a>
+          </div>
+          <p class="hero-footnote">
+            <strong>No code? No problem.</strong> We handle everything – strategy, design, copy, and launch.
+          </p>
+        </div>
+
+        <aside class="hero-aside">
+          <div class="card">
+            <div class="glow-orbit"></div>
+            <div class="card-title">Growth snapshot</div>
+            <div class="card-sub">What a better website can unlock for you.</div>
+            <div class="metric-row">
+              <div>
+                <div class="metric-value">+42%</div>
+                <div class="metric-label">avg. more leads from website</div>
+              </div>
+              <span class="metric-pill">Optimized for conversions</span>
+            </div>
+            <div class="bar">
+              <div class="bar-fill"></div>
+            </div>
+            <div class="chip-row">
+              <span class="chip">Fast mobile performance</span>
+              <span class="chip">Clear call‑to‑actions</span>
+              <span class="chip">SEO‑friendly structure</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Perfect for businesses like</div>
+            <div class="chip-row">
+              <span class="chip">Startups</span>
+              <span class="chip">Local services</span>
+              <span class="chip">Coaches & consultants</span>
+              <span class="chip">Agencies</span>
+              <span class="chip">E‑commerce</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <div class="sections">
+        <section id="benefits">
+          <header>
+            <h2>Why your website matters now</h2>
+            <p>
+              Your website is often the first place people meet your business. We design it
+              to answer their questions fast, build trust, and guide them to contact or buy.
+            </p>
+          </header>
+          <div class="grid-3">
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">01</span>
+                More leads, less confusion
+              </div>
+              <h3>Built to convert</h3>
+              <p>
+                Clear messaging, strong call‑to‑actions, and clean layouts turn visitors
+                into enquiries instead of bounces.
+              </p>
+            </div>
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">02</span>
+                Designed for every screen
+              </div>
+              <h3>Mobile‑first, always</h3>
+              <p>
+                Over half of visitors come from phones. Your site will look sharp and load fast
+                on any device.
+              </p>
+            </div>
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">03</span>
+                Looks as premium as you are
+              </div>
+              <h3>Future‑ready visuals</h3>
+              <p>
+                Modern, futuristic design that makes your brand feel trustworthy, innovative, and
+                worth the price.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="services">
+          <header>
+            <h2>What we build for you</h2>
+            <p>
+              Pick what you need right now – from a single high‑converting landing page to a full
+              business website with multiple pages.
+            </p>
+          </header>
+          <div class="grid-3">
+            <div class="mini">
+              <h3>High‑impact landing pages</h3>
+              <p>
+                One focused page to sell a product, service, or offer with clear storytelling and
+                strong CTAs.
+              </p>
+            </div>
+            <div class="mini">
+              <h3>Business websites</h3>
+              <p>
+                Home, About, Services, Contact, Blog – everything structured so customers always
+                know what to do next.
+              </p>
+            </div>
+            <div class="mini">
+              <h3>E‑commerce storefronts</h3>
+              <p>
+                Product‑first designs that make browsing simple and checkout friction‑free,
+                optimized for mobile buyers.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="process">
+          <header>
+            <h2>Simple process, clear communication</h2>
+            <p>
+              No endless back‑and‑forth. A guided, step‑by‑step process that keeps you in control
+              and gets your website live quickly.
+            </p>
+          </header>
+          <div class="grid-4 grid-2">
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">1</span>
+                Discover
+              </div>
+              <h3>Understand your business</h3>
+              <p>
+                Short call to learn your goals, audience, and offers so the website speaks the
+                right language.
+              </p>
+            </div>
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">2</span>
+                Blueprint
+              </div>
+              <h3>Strategy & wireframes</h3>
+              <p>
+                Plan the pages, sections, and flow that guide visitors from “interested” to “ready
+                to talk”.
+              </p>
+            </div>
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">3</span>
+                Design
+              </div>
+              <h3>Futuristic UI design</h3>
+              <p>
+                Visual design with modern layouts, motion, and micro‑details that make your brand
+                stand out.
+              </p>
+            </div>
+            <div class="mini">
+              <div class="badge">
+                <span class="step-index">4</span>
+                Build & launch
+              </div>
+              <h3>Development & handover</h3>
+              <p>
+                We build, test, and launch on your domain, then hand over everything with training
+                if needed.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="testimonials">
+          <header>
+            <h2>Contact us</h4>
+            <h4>
+              Chandan CP - Business Lead
+            </h4>
+          </header>
+          <div class="grid-2">
+            <div class="mini">
+              <p class="testimonial">
+                “Our business designs modern, user-friendly websites that help brands stand out and grow online.”
+              </p>
+              
+            <div class="mini">
+              <h3>WhatsApp  +1 (610)936-2550</h3>
+
+             <!--- <div class="testimonial-name">Ayesha Patel · Coaching business owner</div> -->
+            </div>
+          </div>
+        </section>
+
+        <section id="contact">
+          <header>
+            <h2>Let’s build your growth engine</h2>
+            <p>
+              Tell us about your business and we’ll reply with 1–2 concepts and a rough timeline
+              for your new website.
+            </p>
+          </header>
+          <div class="cta-panel">
+            <div class="cta-row">
+              <div class="field-row">
+                <input type="text" placeholder="Your name" />
+                <input type="email" placeholder="Your email" />
+                <input type="text" placeholder="Your business / industry" />
+              </div>
+              <button class="btn-primary">Send project details →</button>
+            </div>
+            <p class="cta-note">
+              Prefer email? Reach us at <strong>youremail@yourstudio.com</strong> and share your
+              idea. We usually reply within 24 hours.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <span>© 2025 FutureSite Studio. All rights reserved.</span>
+      <span>
+        <a href="#hero">Back to top</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
